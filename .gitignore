@@ -1,0 +1,13 @@
+### ~ Python ~ ###
+pyproject.toml
+poetry.lock
+__pycache__
+
+### ~ Docker ~ ###
+.dockerignore
+Dockerfile
+*.yml
+
+### ~ development ~ ###
+Makefile
+.flake8
