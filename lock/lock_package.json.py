@@ -8,21 +8,24 @@ import re
 import sys
 
 if __name__ == "__main__":
-    regex_req = re.compile(r"^[+`]-- (\S*)@(\S*)")
+    regex_req = re.compile(r"── (?P<name>[\@\d\w\/\-\_]+)@(?P<version>[\d\.]+)")
     req_map = {}
 
     with open(sys.argv[2]) as reqs:
         for line in reqs.readlines():
-            req = re.match(regex_req, line)
+            req = re.search(regex_req, line)
 
-            if req:
-                req_map[req.group(1)] = req.group(2)
+            if req is not None:
+                req_map[req.group("name")] = req.group("version")
 
     with open(sys.argv[1]) as package_json:
         deps = json.load(package_json)
 
         for target in ("dependencies", "devDependencies"):
-            for key in deps[target]:
-                deps[target][key] = req_map[key]
+            if (category := deps.get(target)) is None:
+                continue
 
-    print(json.dumps(deps, indent=2))
+            for key in category:
+                category[key] = req_map[key]
+
+    print(json.dumps(deps, indent=4))
