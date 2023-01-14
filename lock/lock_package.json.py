@@ -10,6 +10,10 @@ import sys
 if __name__ == "__main__":
     regex_req = re.compile(r"── (?P<name>[\@\d\w\/\-\_]+)@(?P<version>[\d\.]+)")
     req_map = {}
+    exact = False
+
+    if len(sys.argv) > 3 and sys.argv[3] == "--exact":
+        exact = True
 
     with open(sys.argv[2]) as reqs:
         for line in reqs.readlines():
@@ -17,6 +21,8 @@ if __name__ == "__main__":
 
             if req is not None:
                 req_map[req.group("name")] = req.group("version")
+
+    prefix = "" if exact else "^"
 
     with open(sys.argv[1]) as package_json:
         deps = json.load(package_json)
@@ -26,6 +32,6 @@ if __name__ == "__main__":
                 continue
 
             for key in category:
-                category[key] = req_map[key]
+                category[key] = prefix + req_map[key]
 
     print(json.dumps(deps, indent=4))
