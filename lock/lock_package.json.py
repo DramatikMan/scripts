@@ -8,7 +8,7 @@ import re
 import sys
 
 if __name__ == "__main__":
-    regex_req = re.compile(r"-- (?P<name>[\@\d\w\/\-\_]+)@(?P<version>[\d\.]+)")
+    regex_req = re.compile(r"── (?P<name>[\@\d\w\/\-\_]+)@(?P<version>[\d\.]+)")
     req_map = {}
     exact = False
 
