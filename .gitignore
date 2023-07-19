@@ -1,13 +1,9 @@
 ### ~ Python ~ ###
-pyproject.toml
-poetry.lock
 __pycache__
+.mypy_cache
+.ruff_cache
 
 ### ~ Docker ~ ###
-.dockerignore
-Dockerfile
-*.yml
-
-### ~ development ~ ###
-Makefile
-.flake8
+/.dockerignore
+/Dockerfile
+/docker-compose.yml
