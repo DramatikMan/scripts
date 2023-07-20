@@ -1,0 +1,22 @@
+gwui@1.0.0 /app
++-- @intlify/unplugin-vue-i18n@0.11.0
++-- @mdi/font@7.2.96
++-- @types/node@20.4.4
++-- @typescript-eslint/eslint-plugin@5.62.0
++-- @vitejs/plugin-vue@4.2.3
++-- eslint-config-prettier@8.8.0
++-- eslint-plugin-prettier@4.2.1
++-- eslint-plugin-vue@9.15.1
++-- eslint@8.45.0
++-- pinia@2.1.4
++-- prettier@2.8.8
++-- typescript@5.0.4
++-- vite-plugin-eslint@1.8.1
++-- vite@4.4.6
++-- vue-cropperjs@5.0.0
++-- vue-i18n@9.2.2
++-- vue-router@4.2.4
++-- vue-tsc@1.8.6
++-- vue@3.3.4
+`-- vuetify@3.3.9
+

@@ -1,6 +1,7 @@
+#!/usr/bin/python3
 """
 first arg = path to package.json
-second arg = path to output of npm list
+second arg = path to output of "npm list" command
 """
 
 import json
@@ -8,15 +9,15 @@ import re
 import sys
 
 if __name__ == "__main__":
-    regex_req = re.compile(r"── (?P<name>[\@\d\w\/\-\_]+)@(?P<version>[\d\.]+)")
+    regex_req = re.compile(r"[─-]{2} (?P<name>[\@\d\w\/\-\_]+)@(?P<version>[\d\.]+)")
     req_map = {}
     exact = False
 
     if len(sys.argv) > 3 and sys.argv[3] == "--exact":
         exact = True
 
-    with open(sys.argv[2]) as reqs:
-        for line in reqs.readlines():
+    with open(sys.argv[2]) as actual:
+        for line in actual.readlines():
             req = re.search(regex_req, line)
 
             if req is not None:
