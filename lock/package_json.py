@@ -10,7 +10,7 @@ import sys
 
 if __name__ == "__main__":
     regex_req = re.compile(r"[─-]{2} (?P<name>[\@\d\w\/\-\_]+)@(?P<version>[\d\.]+)")
-    req_map = {}
+    req_map: dict[str, str] = {}
     exact = False
 
     if len(sys.argv) > 3 and sys.argv[3] == "--exact":

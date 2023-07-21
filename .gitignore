@@ -1,3 +1,5 @@
+lock/test/asset/out*
+
 ### ~ Python ~ ###
 __pycache__
 .mypy_cache
