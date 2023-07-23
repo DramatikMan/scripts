@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 first arg = path to pyproject.toml
 second arg = path to output of "pdm list" command
