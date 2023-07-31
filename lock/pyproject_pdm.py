@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
                 line = "".join(
                     (
-                        "    ",
+                        '    "',
                         matched.group("name"),
                         prefix,
                         f'{req_map[name]}",\n',
