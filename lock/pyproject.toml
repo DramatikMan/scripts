@@ -6,8 +6,13 @@ authors = [{name = "Sergey Pavlov", email = "self@sergeypavlov.dev"}]
 requires-python = ">=3.11"
 dependencies = [
     "urllib3>=2.0.4",
+    "pyyaml>=6.0.1",
 ]
 
+[project.optional-dependencies]
+types = [
+    "types-PyYAML>=6.0.12.11",
+]
 [tool.pdm.dev-dependencies]
 dev = [
     "black>=23.7.0",
@@ -19,6 +24,8 @@ dev = [
 
 [tool.pdm.scripts]
 lint = {composite = ["black", "isort", "ruff", "mypy --strict"]}
+test = "pytest -qq"
+check = {composite = ["lint lock", "lint requests", "test"]}
 
 [tool.black]
 line-length = 100
