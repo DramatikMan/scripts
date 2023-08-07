@@ -17,7 +17,7 @@ dart_pub_deps_in_path = cwd.joinpath("asset/in.dart.pub.deps.txt").absolute()
         ("--exact", cwd.joinpath("asset/out.exact.pubspec.yaml").absolute()),
     ),
 )
-def test_package_json_pnpm(arg: str, expected_result_path: Path) -> None:
+def test_pubspec_yaml(arg: str, expected_result_path: Path) -> None:
     rv = sp.run(
         [
             "python3",
