@@ -4,8 +4,9 @@ from pathlib import Path
 
 import pytest
 
-cwd = Path(__file__).parent
-script_path = cwd.parent.joinpath("pyproject_pdm.py").absolute()
+from .conftest import cwd, script_dir
+
+script_path = script_dir.joinpath("pyproject_pdm.py").absolute()
 pyproject_in_path = cwd.joinpath("asset/in.pyproject.pdm.toml").absolute()
 pdm_list_in_path = cwd.joinpath("asset/in.pdm_list.txt").absolute()
 

@@ -4,8 +4,9 @@ from pathlib import Path
 import pytest
 import yaml
 
-cwd = Path(__file__).parent
-script_path = cwd.parent.joinpath("pubspec_yaml.py").absolute()
+from .conftest import cwd, script_dir
+
+script_path = script_dir.joinpath("pubspec_yaml.py").absolute()
 pubspec_yaml_in_path = cwd.joinpath("asset/in.pubspec.yaml").absolute()
 dart_pub_deps_in_path = cwd.joinpath("asset/in.dart.pub.deps.txt").absolute()
 
