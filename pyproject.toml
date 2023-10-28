@@ -14,8 +14,6 @@ dev = [
     "ruff>=0.1.3",
     "mypy>=1.6.1",
     "pytest>=7.4.3",
-    "pytest-cov>=4.1.0",
-    "coverage>=7.3.2",
     "types-pyyaml>=6.0.12.12",
 ]
 
@@ -29,15 +27,7 @@ lint = {composite = [
     "lint-path scripts",
     "lint-path tests"
 ]}
-test = {composite = [
-    "pytest -qq --cov=scripts --cov-report='' tests",
-    "coverage html -q --data-file='.coverage'"
-]}
-
-[tool.coverage.run]
-omit = ["*/__init__.py"]
-[tool.coverage.html]
-directory = "htmlcov"
+test = "pytest -qq tests"
 
 [tool.ruff]
 line-length = 100

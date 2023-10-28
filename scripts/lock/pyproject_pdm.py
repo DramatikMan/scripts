@@ -6,6 +6,31 @@ second arg = path to output of "pdm list" command
 
 import re
 import sys
+from typing import Generator
+
+
+rd = re.compile(r'^\s{4}"(?P<name>\S+)",')
+rdv = re.compile(r'^\s{4}"(?P<name>\S+)(?P<operator>\>\=|\<\=|\=\=|\<|\>)(?P<version>\S+)",')
+
+
+def process_dependencies(lines: Generator[str, None, None], exact: bool) -> str:
+    while not (line := next(lines).lower()).startswith("]"):
+        matched = re.match(rdv, line) or re.match(rd, line)
+
+        if matched is not None:
+            line = "".join(
+                (
+                    '    "',
+                    matched.group("name"),
+                    "==" if exact else matched.group("operator"),
+                    f'{req_map[matched.group("name")]}",\n',
+                )
+            )
+
+            print(line, end="")
+
+    return "]\n"
+
 
 if __name__ == "__main__":
     regex_req = re.compile(r"^│ (?P<name>\S+)\s+│ (?P<version>\S*)")
@@ -22,28 +47,17 @@ if __name__ == "__main__":
             if req is not None:
                 req_map[req.group("name")] = req.group("version")
 
-    prefix = "==" if exact else ">="
-    regex_dep_with_version = re.compile(r'^\s*"(?P<name>\S+)[\<\>\=]{2}(?P<version>\S+)",')
-    regex_dep = re.compile(r'^\s*"(?P<name>\S+)",')
-
     with open(sys.argv[1]) as pyproject:
-        for line in pyproject.readlines():
-            lower = line.lower()
-            matched = re.match(regex_dep_with_version, lower) or re.match(regex_dep, lower)
+        lines = (i for i in pyproject.readlines())
 
-            if matched is not None:
-                name = matched.group("name")
+        for line in lines:
+            if line.startswith("dependencies"):
+                print(line, end="")
+                line = process_dependencies(lines, exact)
 
-                if (idx := name.find("[")) != -1:
-                    name = name[:idx]
-
-                line = "".join(
-                    (
-                        '    "',
-                        matched.group("name"),
-                        prefix,
-                        f'{req_map[name]}",\n',
-                    )
-                )
+            if line.startswith("[tool.pdm.") and ("dependencies" in line or "group" in line):
+                print(line, end="")
+                print(next(lines), end="")
+                line = process_dependencies(lines, exact)
 
             print(line, end="")
