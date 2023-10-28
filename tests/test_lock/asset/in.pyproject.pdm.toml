@@ -5,7 +5,7 @@ description = "Dev utility scripts for personal use."
 authors = [{name = "Sergey Pavlov", email = "self@sergeypavlov.dev"}]
 requires-python = ">=3.12"
 dependencies = [
-    "urllib3>=2.0.7",
+    "urllib3>=2.0.4",
     "pyyaml>=6.0.1",
 ]
 
@@ -16,7 +16,7 @@ dev = [
     "pytest>=7.4.3",
     "pytest-cov>=4.1.0",
     "coverage>=7.3.2",
-    "types-pyyaml>=6.0.12.12",
+    "types-PyYAML>=6.0.12.11",
 ]
 
 [tool.pdm.scripts]
@@ -33,6 +33,11 @@ test = {composite = [
     "pytest -qq --cov=scripts --cov-report='' tests",
     "coverage html -q --data-file='.coverage'"
 ]}
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
 
 [tool.coverage.run]
 omit = ["*/__init__.py"]

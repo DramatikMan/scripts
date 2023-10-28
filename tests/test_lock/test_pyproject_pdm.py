@@ -33,6 +33,8 @@ def test_package_json(arg: str, expected_result_path: Path) -> None:
     with tempfile.TemporaryFile("w+") as temp, open(expected_result_path, "r") as handle:
         temp.write(rv.stdout.decode())
         temp.seek(0)
+        lines_1, lines_2 = temp.readlines(), handle.readlines()
+        length = min(len(lines_1), len(lines_2))
 
-        for line1, line2 in zip(temp.readlines(), handle.readlines()):
+        for line1, line2 in zip(lines_1[:length], lines_2[:length], strict=True):
             assert line1 == line2

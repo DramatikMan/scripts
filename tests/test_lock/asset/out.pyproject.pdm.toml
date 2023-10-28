@@ -34,6 +34,11 @@ test = {composite = [
     "coverage html -q --data-file='.coverage'"
 ]}
 
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+
 [tool.coverage.run]
 omit = ["*/__init__.py"]
 [tool.coverage.html]

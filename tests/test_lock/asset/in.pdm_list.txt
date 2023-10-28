@@ -1,0 +1,18 @@
+╭───────────────────┬───────────┬─────────────╮
+│ name              │ version   │ location    │
+├───────────────────┼───────────┼─────────────┤
+│ mypy-extensions   │ 1.0.0     │             │
+│ mypy              │ 1.6.1     │             │
+│ coverage          │ 7.3.2     │             │
+│ pytest            │ 7.4.3     │             │
+│ iniconfig         │ 2.0.0     │             │
+│ packaging         │ 23.1      │             │
+│ ruff              │ 0.1.3     │             │
+│ PyYAML            │ 6.0.1     │             │
+│ typing_extensions │ 4.7.1     │             │
+│ pytest-cov        │ 4.1.0     │             │
+│ pluggy            │ 1.2.0     │             │
+│ types-PyYAML      │ 6.0.12.12 │             │
+│ scripts           │ 1.0.0     │ -e /project │
+│ urllib3           │ 2.0.7     │             │
+╰───────────────────┴───────────┴─────────────╯
