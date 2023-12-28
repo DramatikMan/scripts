@@ -40,7 +40,6 @@ test = {composite = [
     "coverage html -q --data-file='.coverage'"
 ]}
 
-
 [project.scripts]
 app = "app.cli:entrypoint"
 

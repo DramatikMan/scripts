@@ -14,6 +14,10 @@ rdv = re.compile(r'^\s{4}"(?P<name>\S+)(?P<operator>\>\=|\<\=|\=\=|\<|\>)(?P<ver
 with_options = re.compile(r"^(?P<name>\S+)\[\S+\]")
 
 
+class DependencyNotFoundError(Exception):
+    pass
+
+
 def process_dependencies(lines: Generator[str, None, None], exact: bool) -> str:
     while not (line := next(lines).lower()).startswith("]"):
         matched = re.match(rdv, line) or re.match(rd, line)
@@ -25,12 +29,19 @@ def process_dependencies(lines: Generator[str, None, None], exact: bool) -> str:
             if (name_with_options := re.match(with_options, name)) is not None:
                 req_name = name_with_options.group("name")
 
+            version = req_map.get(req_name) or req_map.get(req_name.replace("-", "_"))
+
+            if version is None:
+                raise DependencyNotFoundError(
+                    f'dependency {req_name} not found in "pdm list" output'
+                )
+
             line = "".join(
                 (
                     '    "',
                     name,
                     "==" if exact else matched.group("operator"),
-                    f'{req_map[req_name]}",\n',
+                    f'{version}",\n',
                 )
             )
 
