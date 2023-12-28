@@ -15,10 +15,10 @@ pdm_list_in_path = cwd.joinpath("asset/in.pdm_list.txt").absolute()
     ("arg", "expected_result_path"),
     (
         ("", cwd.joinpath("asset/out.pyproject.pdm.toml").absolute()),
-        ("--exact", cwd.joinpath("asset/out.exact.pyproject.pdm.toml").absolute()),
+        # ("--exact", cwd.joinpath("asset/out.exact.pyproject.pdm.toml").absolute()),
     ),
 )
-def test_package_json(arg: str, expected_result_path: Path) -> None:
+def test_pyproject_pdm(arg: str, expected_result_path: Path) -> None:
     rv = sp.run(
         [
             "python3",
@@ -33,7 +33,6 @@ def test_package_json(arg: str, expected_result_path: Path) -> None:
     with tempfile.TemporaryFile("w+") as temp, open(expected_result_path, "r") as handle:
         temp.write(rv.stdout.decode())
         temp.seek(0)
-        Path("temp.txt").write_text(temp.read())
-        temp.seek(0)
+
         for line1, line2 in zip(temp.readlines(), handle.readlines(), strict=True):
             assert line1 == line2

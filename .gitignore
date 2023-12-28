@@ -8,4 +8,4 @@ __pycache__
 ### ~ Docker ~ ###
 /.dockerignore
 /Dockerfile
-/docker-compose.yml
+/docker-compose.yaml

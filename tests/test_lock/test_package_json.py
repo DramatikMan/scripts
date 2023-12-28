@@ -6,19 +6,19 @@ import pytest
 
 from .conftest import cwd, script_dir
 
-script_path = script_dir.joinpath("package_json_npm.py").absolute()
-package_json_in_path = cwd.joinpath("asset/in.package.npm.json").absolute()
+script_path = script_dir.joinpath("package_json.py").absolute()
+package_json_in_path = cwd.joinpath("asset/in.package.json").absolute()
 npm_list_in_path = cwd.joinpath("asset/in.npm_list.txt").absolute()
 
 
 @pytest.mark.parametrize(
     ("arg", "expected_result_path"),
     (
-        ("", cwd.joinpath("asset/out.package.npm.json").absolute()),
-        ("--exact", cwd.joinpath("asset/out.exact.package.npm.json").absolute()),
+        ("", cwd.joinpath("asset/out.package.json").absolute()),
+        ("--exact", cwd.joinpath("asset/out.exact.package.json").absolute()),
     ),
 )
-def test_package_json_npm(arg: str, expected_result_path: Path) -> None:
+def test_package_json(arg: str, expected_result_path: Path) -> None:
     rv = sp.run(
         [
             "python3",

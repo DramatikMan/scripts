@@ -11,6 +11,7 @@ from typing import Generator
 
 rd = re.compile(r'^\s{4}"(?P<name>\S+)",')
 rdv = re.compile(r'^\s{4}"(?P<name>\S+)(?P<operator>\>\=|\<\=|\=\=|\<|\>)(?P<version>\S+)",')
+with_options = re.compile(r"^(?P<name>\S+)\[\S+\]")
 
 
 def process_dependencies(lines: Generator[str, None, None], exact: bool) -> str:
@@ -18,12 +19,18 @@ def process_dependencies(lines: Generator[str, None, None], exact: bool) -> str:
         matched = re.match(rdv, line) or re.match(rd, line)
 
         if matched is not None:
+            name = matched.group("name")
+            req_name = name
+
+            if (name_with_options := re.match(with_options, name)) is not None:
+                req_name = name_with_options.group("name")
+
             line = "".join(
                 (
                     '    "',
-                    matched.group("name"),
+                    name,
                     "==" if exact else matched.group("operator"),
-                    f'{req_map[matched.group("name")]}",\n',
+                    f'{req_map[req_name]}",\n',
                 )
             )
 
