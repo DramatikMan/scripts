@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
 first arg = path to pubspec.yaml
-second arg = path to output of "dart pub" command
+second arg = path to output of "dart pub deps" command
 """
 
 import re
