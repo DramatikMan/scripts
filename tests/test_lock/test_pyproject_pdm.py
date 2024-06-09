@@ -15,7 +15,7 @@ pdm_list_in_path = cwd.joinpath("asset/in.pdm_list.txt").absolute()
     ("arg", "expected_result_path"),
     (
         ("", cwd.joinpath("asset/out.pyproject.pdm.toml").absolute()),
-        # ("--exact", cwd.joinpath("asset/out.exact.pyproject.pdm.toml").absolute()),
+        ("--exact", cwd.joinpath("asset/out.exact.pyproject.pdm.toml").absolute()),
     ),
 )
 def test_pyproject_pdm(arg: str, expected_result_path: Path) -> None:

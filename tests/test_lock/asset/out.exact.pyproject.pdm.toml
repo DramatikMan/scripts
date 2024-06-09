@@ -11,6 +11,7 @@ dependencies = [
     "typer==0.9.0",
     "uvicorn[standard]==0.25.0",
     "gunicorn==21.2.0",
+    "opentelemetry-proto @ file:///${PROJECT_ROOT}/package/opentelemetry-proto",
 ]
 
 [tool.pdm.dev-dependencies]
@@ -39,7 +40,6 @@ test = {composite = [
     "pytest -qq --cov=app --cov-report='' tests",
     "coverage html -q --data-file='.coverage'"
 ]}
-
 
 [project.scripts]
 app = "app.cli:entrypoint"

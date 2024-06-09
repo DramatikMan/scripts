@@ -11,6 +11,7 @@ from typing import Generator
 
 rd = re.compile(r'^\s{4}"(?P<name>\S+)",')
 rdv = re.compile(r'^\s{4}"(?P<name>\S+)(?P<operator>\>\=|\<\=|\=\=|\<|\>)(?P<version>\S+)",')
+rdl = re.compile(r'^\s{4}"(?P<name>\S+)\s{1}@\s{1}(?P<location>\S+)",')
 with_options = re.compile(r"^(?P<name>\S+)\[\S+\]")
 
 
@@ -19,7 +20,15 @@ class DependencyNotFoundError(Exception):
 
 
 def process_dependencies(lines: Generator[str, None, None], exact: bool) -> str:
-    while not (line := next(lines).lower()).startswith("]"):
+    while not (line := next(lines)).startswith("]"):
+        matched = re.match(rdl, line)
+
+        if matched is not None:
+            line = f"""    "{matched.group("name").lower()} @ {matched.group("location")}",\n"""
+            print(line, end="")
+            continue
+
+        line = line.lower()   
         matched = re.match(rdv, line) or re.match(rd, line)
 
         if matched is not None:
@@ -51,7 +60,7 @@ def process_dependencies(lines: Generator[str, None, None], exact: bool) -> str:
 
 
 if __name__ == "__main__":
-    regex_req = re.compile(r"^│ (?P<name>\S+)\s+│ (?P<version>\S*)")
+    regex_req = re.compile(r"^│ (?P<name>\S+)\s+│ (?P<version>\S*)\s+")
     req_map: dict[str, str] = {}
     exact = False
 
